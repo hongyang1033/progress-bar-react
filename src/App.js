@@ -31,7 +31,9 @@ class App extends Component {
 
   changeProgress(item) {
     const bars = [...this.state.bars];
-    if(bars[this.state.active] + item >= 0) {
+    if(bars[this.state.active] + item <= 0) {
+      bars[this.state.active] = 0
+    } else {
       bars[this.state.active] = bars[this.state.active] + item
     }
 
@@ -41,14 +43,18 @@ class App extends Component {
   }
 
   render() {
-    const { buttons, bars } = this.state
-    console.log(this.state)
+    const { buttons, bars, limit } = this.state
     return (
       <div className="App container">
+        <h1 className="text-center">Limit: {limit}</h1>
         {
           bars.map((item, index) => {
-            const progress = Math.ceil((100 * item) / this.state.limit)
-            return <ProgressBar bsStyle={progress < 100 ? `info` : `danger`} key={index} now={progress} label={`${progress}%`} />
+            return (
+              <div key={index}>
+                <div className="text-center">{item}%</div>
+                <ProgressBar bsStyle={item <  limit ? `info` : `danger`} key={index} now={item} />
+              </div>
+            )
           })
         }
         <FormGroup controlId="formControlsSelect">

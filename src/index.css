@@ -4,3 +4,13 @@ body {
   font-family: sans-serif;
 }
 
+.progress {
+  position: relative;
+}
+
+.progress span {
+  position: absolute;
+  display: block;
+  width: 100%;
+  color: black;
+}
